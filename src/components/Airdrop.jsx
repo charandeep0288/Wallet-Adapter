@@ -8,17 +8,7 @@ function Airdrop({ selectedValue, setSelectedValue, setAirDropHappend }) {
   const wallet = useWallet(); // will give access to the wallet
   const { connection } = useConnection();
   const [airdropAmount, setAirdropAmount] = useState("");
-  const [disableSendSol, setDisableSendSol] = useState(true);
-  // const [selectedValue, setSelectedValue] = useState("");
-  useEffect(() => {
-    if (wallet?.publicKey) {
-      setDisableSendSol(false);
-    } else if (!wallet.publicKey) {
-      setAirdropAmount("");
-      setDisableSendSol(true);
-    }
-  }, [wallet?.publicKey]);
-
+  
   // define the function inside the component(Airdrop) body
   const sendAirdropToUser = async () => {
     if (!wallet?.publicKey) {
@@ -75,8 +65,9 @@ function Airdrop({ selectedValue, setSelectedValue, setAirDropHappend }) {
         />
       </div>
       <button
+        disabled={!wallet?.publicKey || !airdropAmount}
         className={`mb-4 ${
-          disableSendSol || !airdropAmount
+          !wallet?.publicKey || !airdropAmount
             ? "cursor-not-allowed bg-[#404144] text-[#999]"
             : "bg-[#512ea5] hover:bg-[#1a1f2e;]"
         }`}

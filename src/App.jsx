@@ -1,5 +1,5 @@
 // https://github.com/anza-xyz/wallet-adapter/blob/master/APP.md
-import React, { FC, useMemo, useState } from "react";
+import React, { FC, useState } from "react";
 
 import {
   ConnectionProvider,
@@ -21,9 +21,9 @@ import "@solana/wallet-adapter-react-ui/styles.css";
 import "./App.css";
 import Airdrop from "./components/Airdrop";
 import Header from "./components/header";
-import Footer from "./components/Footer";
 import UserBalance from "./components/UserBalance";
 import Loader from "./components/Loader";
+import SignMessage from "./components/SignMessage";
 
 function App() {
 
@@ -70,8 +70,9 @@ function App() {
             setAirDropHappend={setAirDropHappend}
           />
 
+          <SignMessage />
+
           <Loader />
-          <Footer />
         </WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>
