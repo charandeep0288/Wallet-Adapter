@@ -1,9 +1,9 @@
 // components in react, are very similar to creating your own HTML tag
 import { useWallet, useConnection } from "@solana/wallet-adapter-react";
-import { useState, useMemo, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Dropdown from "./Dropdown";
 
-function Airdrop({ selectedValue, setSelectedValue }) {
+function Airdrop({ selectedValue, setSelectedValue, setAirDropHappend }) {
   // The useWallet `Hook` `provides` the wallet variable inside the airdrop 'Component', because I wrapped the Airdrop component inside the WalletProvider in the parent element of this component
   const wallet = useWallet(); // will give access to the wallet
   const { connection } = useConnection();
@@ -21,7 +21,7 @@ function Airdrop({ selectedValue, setSelectedValue }) {
 
   // define the function inside the component(Airdrop) body
   const sendAirdropToUser = async () => {
-    if (!wallet.publicKey) {
+    if (!wallet?.publicKey) {
       alert("Please connect your Wallet!!");
       return;
     }
@@ -29,9 +29,10 @@ function Airdrop({ selectedValue, setSelectedValue }) {
     // const airdropAmount = document.querySelector("airdrop-amount").value;
     try {
       await connection.requestAirdrop(
-        wallet.publicKey,
+        wallet?.publicKey,
         parseInt(airdropAmount)
       ); // 2nd argument is in lamports amount we want to send to the provided - public key
+      setAirDropHappend(true);
       alert("Air Droped Successfull !!!");
     } catch (e) {
       alert("Got an Unexpected error!!!");

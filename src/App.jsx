@@ -18,13 +18,17 @@ import { clusterApiUrl } from "@solana/web3.js";
 // Default styles that can be overridden by your app
 import "@solana/wallet-adapter-react-ui/styles.css";
 
+import "./App.css";
 import Airdrop from "./components/Airdrop";
 import Header from "./components/header";
 import Footer from "./components/Footer";
-import "./App.css";
+import UserBalance from "./components/UserBalance";
+import Loader from "./components/Loader";
 
 function App() {
+
   const [selectedEndpoints, setSelectedEndpoints] = useState("https://solana-mainnet.g.alchemy.com/v2/itzn16A7fCkYmzsflcNVz7dNB-Fn0_DA");
+  const [airDropHappend, setAirDropHappend] = useState(false);
 
   // const mainNetwork = WalletAdapterNetwork.Mainnet;
   // const devNetwork = WalletAdapterNetwork.Devnet;
@@ -54,11 +58,20 @@ function App() {
         <WalletModalProvider>
           <Header />
 
+          <UserBalance
+            selectedEndpoints={selectedEndpoints}
+            airDropHappend={airDropHappend}
+          />
+
           {/* Custom Component */}
-          <Airdrop selectedValue={selectedEndpoints} setSelectedValue={setSelectedEndpoints}/>
+          <Airdrop
+            selectedValue={selectedEndpoints}
+            setSelectedValue={setSelectedEndpoints}
+            setAirDropHappend={setAirDropHappend}
+          />
 
+          <Loader />
           <Footer />
-
         </WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>
