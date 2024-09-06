@@ -1,5 +1,5 @@
 // https://github.com/anza-xyz/wallet-adapter/blob/master/APP.md
-import React, { FC, useState } from "react";
+import React, { FC, useMemo, useState } from "react";
 
 import {
   ConnectionProvider,
@@ -20,14 +20,15 @@ import "@solana/wallet-adapter-react-ui/styles.css";
 
 import "./App.css";
 import Airdrop from "./components/Airdrop";
-import Header from "./components/header";
+import Header from "./components/Header";
 import UserBalance from "./components/UserBalance";
 import Loader from "./components/Loader";
 import SignMessage from "./components/SignMessage";
 
 function App() {
-
-  const [selectedEndpoints, setSelectedEndpoints] = useState("https://solana-mainnet.g.alchemy.com/v2/itzn16A7fCkYmzsflcNVz7dNB-Fn0_DA");
+  const [selectedEndpoints, setSelectedEndpoints] = useState(
+    "https://solana-mainnet.g.alchemy.com/v2/itzn16A7fCkYmzsflcNVz7dNB-Fn0_DA"
+  );
   const [airDropHappend, setAirDropHappend] = useState(false);
 
   // const mainNetwork = WalletAdapterNetwork.Mainnet;
