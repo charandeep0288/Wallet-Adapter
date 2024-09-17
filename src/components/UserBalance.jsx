@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 
-const UserBalance = ({ selectedEndpoints }) => {
+const UserBalance = ({ selectedEndpoints, refetchUserBalance }) => {
   const [walletBalance, setWalletBalance] = useState("");
   const { connection } = useConnection();
   const wallet = useWallet();
@@ -12,7 +12,7 @@ const UserBalance = ({ selectedEndpoints }) => {
       const balance = await connection.getBalance(wallet?.publicKey);
       setWalletBalance(balance / LAMPORTS_PER_SOL);
     }
-  }, [wallet?.publicKey, selectedEndpoints]);
+  }, [wallet?.publicKey, selectedEndpoints, refetchUserBalance]);
 
   useEffect(() => {
     fetchBalance();

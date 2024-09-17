@@ -3,7 +3,7 @@ import { useWallet, useConnection } from "@solana/wallet-adapter-react";
 import { useState, useEffect } from "react";
 import Dropdown from "./Dropdown";
 
-function Airdrop({ selectedValue, setSelectedValue, setAirDropHappend }) {
+function Airdrop({ selectedValue, setSelectedValue, refetchUserBalance, setRefechUserBalance }) {
   // The useWallet `Hook` `provides` the wallet variable inside the airdrop 'Component', because I wrapped the Airdrop component inside the WalletProvider in the parent element of this component
   const wallet = useWallet(); // will give access to the wallet
   const { connection } = useConnection();
@@ -22,10 +22,10 @@ function Airdrop({ selectedValue, setSelectedValue, setAirDropHappend }) {
         wallet?.publicKey,
         parseInt(airdropAmount)
       ); // 2nd argument is in lamports amount we want to send to the provided - public key
-      setAirDropHappend(true);
+      setRefechUserBalance(refetchUserBalance ? false : true);
       alert("Air Droped Successfull !!!");
     } catch (e) {
-      alert("Got an Unexpected error!!!");
+      alert("Got an Unexpected error !!!");
     }
     setAirdropAmount("");
   };

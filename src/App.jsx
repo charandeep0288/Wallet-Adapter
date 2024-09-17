@@ -24,12 +24,14 @@ import Header from "./components/Header";
 import UserBalance from "./components/UserBalance";
 import Loader from "./components/Loader";
 import SignMessage from "./components/SignMessage";
+import SendSonala from './components/SendSolana';
 
 function App() {
   const [selectedEndpoints, setSelectedEndpoints] = useState(
     "https://solana-mainnet.g.alchemy.com/v2/itzn16A7fCkYmzsflcNVz7dNB-Fn0_DA"
   );
   const [airDropHappend, setAirDropHappend] = useState(false);
+  const [refetchUserBalance, setRefechUserBalance] = useState(false);
 
   // const mainNetwork = WalletAdapterNetwork.Mainnet;
   // const devNetwork = WalletAdapterNetwork.Devnet;
@@ -61,17 +63,23 @@ function App() {
 
           <UserBalance
             selectedEndpoints={selectedEndpoints}
-            airDropHappend={airDropHappend}
+            refetchUserBalance={refetchUserBalance}
           />
 
           {/* Custom Component */}
           <Airdrop
             selectedValue={selectedEndpoints}
             setSelectedValue={setSelectedEndpoints}
-            setAirDropHappend={setAirDropHappend}
+            refetchUserBalance={refetchUserBalance}
+            setRefechUserBalance={setRefechUserBalance}
           />
 
           <SignMessage />
+          
+          <SendSonala 
+            refetchUserBalance={refetchUserBalance}
+            setRefechUserBalance={setRefechUserBalance}
+          />
 
           <Loader />
         </WalletModalProvider>
